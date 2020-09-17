@@ -4,13 +4,15 @@ const gridInput = document.querySelector("#quantity");
 const resetButton = document.querySelector(".reset");
 let hue = 0;
 
-const createBoard = (gridSizing) => {
+
+
+const createBoard = (gridRowsAndColumns) => {
   grid.innerHTML = "";
 
-  grid.style.setProperty("--number-of-columns", `repeat(${gridSizing}, 1fr)`);
-  grid.style.setProperty("--number-of-rows", `repeat(${gridSizing}, 1fr)`);
+  grid.style.setProperty("--number-of-columns", `repeat(${gridRowsAndColumns}, 1fr)`);
+  grid.style.setProperty("--number-of-rows", `repeat(${gridRowsAndColumns}, 1fr)`);
 
-  for (let i = 0; i < gridSizing * gridSizing; i++) {
+  for (let i = 0; i < gridRowsAndColumns * gridRowsAndColumns; i++) {
     const square = document.createElement("div");
     square.setAttribute("id", `square-${i}`);
     square.classList.add("cell");
@@ -18,6 +20,8 @@ const createBoard = (gridSizing) => {
   }
 };
 
+
+// Initial board will always start with 10 rows and 10 columns
 createBoard(10);
 
 const cells = document.querySelectorAll(".cell");
@@ -35,17 +39,18 @@ const cellOnMouseOver = (cell) => {
 };
 
 
-
+// Applies onMouseOver to predetermined grid
 cellOnMouseOver(cells);
-
 
 createGridButton.addEventListener("click", () => {
   const gridSize = gridInput.value;
   createBoard(gridSize);
   const newCells = document.querySelectorAll(".cell");
+
+  //Applies onMouseOver to newly created grid.
   cellOnMouseOver(newCells);
 });
 
 resetButton.addEventListener("click", () => {
   createBoard(10);
-})
+});
